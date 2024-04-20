@@ -61,11 +61,11 @@
                 header('location:../index.php');
                 die();
             } else {
-                echo "The password you entered is wrong, please try again <a href='signin.php'> Login </a>";
+                echo "The password you entered is wrong, please try again <a href='../signin.php'> Login </a>";
                 die();
             }
         } else {
-            echo "This email is not assigned, <a href='signup.php'> Sign up? </a>";
+            echo "This email is not assigned, <a href='../s ignup.php'> Sign up? </a>";
             die();
         }
     }

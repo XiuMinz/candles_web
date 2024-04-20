@@ -30,10 +30,10 @@ if (isset($_SESSION['id'])) {
 <body>
 	<?php include_once 'navbar.php'; ?>
 	<div>
-	<?php
-	if (isset($_GET['f']) && $_GET['f'] == 'add') {
-		echo "
-        <form  method='post' enctype='multipart/form-data' name='addPost' id='addPost' onsubmit='return addPost()'>
+		<?php
+		if (isset($_GET['f']) && $_GET['f'] == 'add') {
+			echo "
+        <form  action  = 'test.php' method='POST' enctype='multipart/form-data' name='addPost' onsubmit='return addPost()'>
         <label> Title </label>
         <input type='text' name='title'>
         <label> Body </label>
@@ -42,13 +42,13 @@ if (isset($_SESSION['id'])) {
         <input type='file' name='img'>
         <input type='submit' name='add' value='add'>
         </form> ";
-	} else if (isset($_GET['f']) && $_GET['f'] == 'edit') {
-		$postID = $_GET['postID'];
-		$getPostInfo = "SELECT * FROM posts WHERE id = '$postID'";
-		$infoRes = mysqli_query($conn, $getPostInfo);
-		if ($infoRes->num_rows > 0) {
-			$postData = mysqli_fetch_assoc($infoRes);
-			echo "
+		} else if (isset($_GET['f']) && $_GET['f'] == 'edit') {
+			$postID = $_GET['postID'];
+			$getPostInfo = "SELECT * FROM posts WHERE id = '$postID'";
+			$infoRes = mysqli_query($conn, $getPostInfo);
+			if ($infoRes->num_rows > 0) {
+				$postData = mysqli_fetch_assoc($infoRes);
+				echo "
             <form action='handlers/postsHandler.php' method='post' enctype='multipart/form-data'>
             <input type='hidden' name='postID' value='$postData[id]'>
             <label> Title </label>
@@ -60,27 +60,27 @@ if (isset($_SESSION['id'])) {
             <input type='submit' name='edit' value='edit'>
             </form>
             ";
-		} else {
-			echo "get out!";
-		}
-	} else if (isset($_GET['f']) && $_GET['f'] == 'delete') {
-		$postID = $_GET['postID'];
-		$getPostInfo = "SELECT * FROM posts WHERE id = '$postID'";
-		$infoRes = mysqli_query($conn, $getPostInfo);
-		if ($infoRes->num_rows > 0) {
-			echo "<script> if(confirm ('are you sure you want to delete this post?')){
+			} else {
+				echo "get out!";
+			}
+		} else if (isset($_GET['f']) && $_GET['f'] == 'delete') {
+			$postID = $_GET['postID'];
+			$getPostInfo = "SELECT * FROM posts WHERE id = '$postID'";
+			$infoRes = mysqli_query($conn, $getPostInfo);
+			if ($infoRes->num_rows > 0) {
+				echo "<script> if(confirm ('are you sure you want to delete this post?')){
 				window.location.href = 'handlers/postsHandler.php?delete=$postID';
 			}else {
 				window.location.href = 'index.php';
 			}</script>";
-		} else {
-			echo "get out!";
+			} else {
+				echo "get out!";
+			}
 		}
-	}
-	?>
+		?>
 	</div>
-	<?php include_once 'footer.php'; ?>	
-<script src="../JS/formValidaton.js"></script>
+	<?php include_once 'footer.php'; ?>
+	<script src="../JS/formValidation.js"></script>
 </body>
 
 </html>
