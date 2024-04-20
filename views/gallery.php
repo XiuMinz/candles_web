@@ -11,10 +11,8 @@
     <?php
     include_once 'navbar.php';
     $directory = "../img/gallery";
-
     // Get all files and directories in the specified directory
     $files = scandir($directory);
-
     // Loop through each file and directory
     foreach ($files as $file) {
         // Check if it's a regular file (not . or ..)

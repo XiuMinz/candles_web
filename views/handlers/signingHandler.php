@@ -6,6 +6,10 @@
         $email = trim(htmlspecialchars($_POST['email']));
         $uName = trim(htmlspecialchars($_POST['userName']));
         $pw = trim(htmlspecialchars($_POST['passWord']));
+        if(filter_var($email,FILTER_VALIDATE_EMAIL) === false){
+            echo "Invalid Email! <a href='../signup.php'>Try Again</a>";
+            die();
+        }
         if (empty($email) || empty($uName) || empty($pw)) {
             echo "Please fill all fields!";
             die();
@@ -37,8 +41,14 @@
     } else if (isset($_POST['signin'])) {
         $email = trim(htmlspecialchars($_POST['email']));
         $pw = trim(htmlspecialchars($_POST['passWord']));
+        if(filter_var($email,FILTER_VALIDATE_EMAIL) === false){
+            echo "Invalid Email! <a href='../signin.php'>Try Again</a>";
+            die();
+        }
+        
+        // Check if empty
         if (empty($email) || empty($pw)) {
-            echo "Please fill all fields!";
+            echo "Please fill all fields!<a href='../signin.php'>Try Again</a>";
             die();
         }
         $getCred = "SELECT id,password FROM users WHERE email = '$email'";
@@ -51,11 +61,11 @@
                 header('location:../index.php');
                 die();
             } else {
-                echo "The password you entered is wrong, please try again <a href='signin.php'> Login </a>";
+                echo "The password you entered is wrong, please try again <a href='../signin.php'> Login </a>";
                 die();
             }
         } else {
-            echo "This email is not assigned, <a href='signup.php'> Sign up? </a>";
+            echo "This email is not assigned, <a href='../s ignup.php'> Sign up? </a>";
             die();
         }
     }

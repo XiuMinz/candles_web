@@ -11,7 +11,14 @@ if (isset($_SESSION['id'])) {
         $nName = trim(htmlspecialchars($_POST['name']));
         $nPN = trim(htmlspecialchars($_POST['phoneNo']));
         $img = $_FILES['img'];
-
+        if(empty($nName) && empty($nPN) && empty($img['name'])){
+            header('location:../index.php');
+            die();
+        }
+        if (filter_var($nPN, FILTER_VALIDATE_INT) === false) {
+            echo "Invalid Phone Number, Try again <a href='../editProfile.php'>Try Again</a>";
+            die();
+        }
         $getUserInfo = "SELECT * FROM users WHERE id = '$_SESSION[id]'";
         $userInfoRes = mysqli_query($conn, $getUserInfo);
         if ($userInfoRes->num_rows > 0) {
@@ -38,18 +45,21 @@ if (isset($_SESSION['id'])) {
             $allowedExt = ['jpg', 'png'];
             $imgSizeKB = $imgSize / 1024;
             $minSizeKB = 1;
-            $maxSizeKB = 5000;
-
+            $maxSizeKB = 100;
             if (!in_array($imgExt, $allowedExt)) {
                 $errors[] = "Invalid File Format, Must be jpg,png";
             }
             if ($imgSizeKB < $minSizeKB || $imgSizeKB > $maxSizeKB) {
                 $errors[] = "Invalid File Size, Must be > $minSizeKB KB and < $maxSizeKB KB";
             }
-            if ($imgErrors != 0 || !empty($errors)) {
+            // if (filter_var($nPN, FILTER_VALIDATE_INT) === false) {
+            //     $errors[] = "Invalid Phone Number!";
+            // }
+            if (!empty($errors)) {
                 foreach ($errors as $error) {
                     echo "<p>$error</p> <br>";
                 }
+                echo "Something went wrong, Try again later <a href='../editProfile.php'>Try Again</a>";
                 die();
             }
             // Save Image File
@@ -71,11 +81,11 @@ if (isset($_SESSION['id'])) {
         $currentPW = trim(htmlspecialchars($_POST['cPW']));
         $newPW = trim(htmlspecialchars($_POST['nPW']));
         $reNPW = trim(htmlspecialchars($_POST['rePW']));
-        if($newPW == $currentPW){
+        if ($newPW == $currentPW) {
             echo "New Password can't be the old one! <a href='changePW.php'>try again</a>";
-            die();            
+            die();
         }
-        if($newPW != $reNPW){
+        if ($newPW != $reNPW) {
             echo "New Password doesn't match it self! <a href='changePW.php'>try again</a>";
             die();
         }
@@ -86,10 +96,10 @@ if (isset($_SESSION['id'])) {
             $userPW = $row['0'];
             // Verify PWs
             if (password_verify($currentPW, $userPW)) {
-                $hashedPW = password_hash($newPW,PASSWORD_DEFAULT);
+                $hashedPW = password_hash($newPW, PASSWORD_DEFAULT);
                 $updatePW = "UPDATE users SET password='$hashedPW' WHERE id = '$enteredID'";
                 $updateRes = $conn->query($updatePW);
-                if($updateRes){
+                if ($updateRes) {
                     header('location:../index.php');
                     die();
                 } else {

@@ -10,6 +10,8 @@ if (isset($_SESSION['id'])) {
 		$userInfo = mysqli_fetch_assoc($userInfoRes);
 		$role = $userInfo['is_admin'];
 	}
+} else {
+	$role = '2';
 }
 ?>
 <!DOCTYPE html>
@@ -18,7 +20,10 @@ if (isset($_SESSION['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="../img/favIcon/favicon.ico">
+    <link rel="stylesheet" href="../CSS/normalize.css">
+    <link rel="stylesheet" href="../CSS/all.min.css">
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/style.css">
 </head>
 <style>
@@ -41,7 +46,7 @@ if (isset($_SESSION['id'])) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="img/sticker.jpg">
+            <a class="navbar-brand" href="../img/sticker.jpg">
                 <img id="brand" src="../img/sticker.jpg" alt="logo" width="45" height="40">
             </a>
             <a class="navbar-brand text-light" href="index.php" style="font-family:Garamond,Serif;font-size:xx-large;">Candles</a>
@@ -55,7 +60,7 @@ if (isset($_SESSION['id'])) {
                     <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
                     <li class='nav-item non-user'><a class='nav-link' href='contact.php'>Contact Us</a></li>
                     <li class='nav-item user'><a class='nav-link' href='editProfile.php'>Edit Profile</a></li>
-                    <li class='nav-item admin user'><a class='nav-link' href='addPosts.php?f=add'>Add Post</a></li>
+                    <li class='nav-item user admin'><a class='nav-link' href='addPosts.php?f=add'>Add Post</a></li>
                     <li class='nav-item user'><a class='nav-link' href='signout.php'>Sign Out</a></li>
                 </ul>
                 <div class="d-flex text-light">
@@ -70,11 +75,8 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
-
+<script src="../JS/all.min.js"></script>
+<script src="../JS/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
