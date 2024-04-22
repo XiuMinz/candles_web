@@ -42,13 +42,13 @@ if (isset($_SESSION['id'])) {
     <p><?php echo ($role == '1') ? "Admin" : "Member"; ?></p>
     <div>
         <p>Edit Info</p>
-        <form action="handlers/profileHandler.php" method="post" enctype="multipart/form-data">
+        <form action="handlers/profileHandler.php" method="POST" enctype="multipart/form-data">
             <input name="id" value="<?php echo $_SESSION['id'] ?>" hidden>
             <label>Name:</label>
             <input type="text" placeholder="<?php echo $fName ?>" name="name">
             <br>
             <label>Phone Number:</label>
-            <input type="number" placeholder="<?php echo $phoneNo ?>" name="phoneNo">
+            <input type="text" placeholder="<?php echo $phoneNo ?>" name="phoneNo">
             <br>
             <label>Email Address:</label>
             <input placeholder="<?php echo $email ?>" disabled>
@@ -58,7 +58,7 @@ if (isset($_SESSION['id'])) {
             <br>
             <input type="submit" value="Edit" name="edit">
         </form>
-        <a href="changePW.php">Change Password?</a>
+        <a href="changePW.php?f=c">Change Password?</a>
     </div>
     <?php include_once 'footer.php'; ?>
 </body>

@@ -1,7 +1,7 @@
 <?php
 include_once 'connect.php';
 session_start();
-
+$userID = $_SESSION['id'];
 if (isset($_POST['add'])) {
     $title = trim(htmlspecialchars($_POST['title']));
     $body = trim(htmlspecialchars($_POST['body']));
@@ -36,10 +36,11 @@ if (isset($_POST['add'])) {
     if ($imgSizeKB < $minSizeKB || $imgSizeKB > $maxSizeKB) {
         $errors[] = "Invalid File Size!";
     }
-    if ($imgErrors != 0 || !empty($errors)) {
+    if ($imgErrors !== UPLOAD_ERR_OK || !empty($errors)) {
         foreach ($errors as $error) {
             echo "<p>$error</p>";
         }
+        echo "<a href='../addPosts.php'>Try Again</a>";
         die();
     }
     // Save Image File
@@ -47,12 +48,14 @@ if (isset($_POST['add'])) {
     move_uploaded_file($imgTmpName, "img/posts/$imgNewName");
 
     // Insert Data
-    $insertPost = "INSERT INTO posts (user_id, title, body, img) VALUES ('1','$title','$body','$imgNewName')";
+    $insertPost = "INSERT INTO posts (user_id, title, body, img) VALUES ('$userID','$title','$body','$imgNewName')";
     $insertionRes = $conn->query($insertPost);
     if ($insertionRes) {
         header('location:../index.php');
+        die();
     } else {
         echo "Something went wrong!";
+        die();
     }
 } else if (isset($_POST['edit'])) {
     $postID = trim(htmlspecialchars($_POST['postID']));
@@ -68,7 +71,7 @@ if (isset($_POST['add'])) {
     $title = trim(htmlspecialchars($_POST['title']));
     $body = trim(htmlspecialchars($_POST['body']));
     $img = $_FILES['img'];
-    // Verify inputs
+    // Make sure vars has values
     if (empty($title)) {
         $title = $oldTitle;
     }
@@ -95,10 +98,12 @@ if (isset($_POST['add'])) {
         } else if ($imgSizeKB < $minSizeKB || $imgSizeKB > $maxSizeKB) {
             $errors[] = "Invalid File Size";
         }
+        // Show Errors
         if ($imgErrors != 0 || !empty($errors)) {
             foreach ($errors as $error) {
                 echo "<p>$error</p> <br>";
             }
+            echo "<a href='../index.php'>Try Again</a>";
             die();
         }
         // Save Image File
@@ -108,17 +113,19 @@ if (isset($_POST['add'])) {
         $imgNewName = $oldImgName;
     }
     // Save edit
-    $updatePost = "UPDATE posts SET title = '$title', body = '$body', img = '$imgNewName' WHERE id = '$postID'";
+    $updatePost = "UPDATE posts SET title = '$title', body = '$body', img = '$imgNewName', last_editor = '$userID' WHERE id = '$postID'";
     $result = mysqli_query($conn, $updatePost);
     if ($result) {
         header("Location:../index.php");
+        die();
     } else {
-        echo "something went wrong, try again later";
+        echo "something went wrong, try again later <a href='../index.php'>Try Again</a>";
+        die();
     }
 } else if (isset($_GET['delete'])) {
     $postID = trim(htmlspecialchars($_GET['delete']));
-    $getPosimg = "SELECT img FROM posts WHERE id = '$postID'";
-    $result = $conn->query($getPosimg);
+    $getPostImg = "SELECT img FROM posts WHERE id = '$postID'";
+    $result = $conn->query($getPostImg);
     $img = $result->fetch_assoc();
     $imgName = $img['img'];
     $deletePost = "DELETE FROM posts WHERE id = '$postID'";
@@ -128,5 +135,8 @@ if (isset($_POST['add'])) {
     $deleteRes = $conn->query($deletePost);
     if ($deleteRes) {
         header("Location:../index.php");
+        die();
+    } else {
+        echo "Some thing went wrong <a href='../index.php'>Try Again</a>";
     }
 }

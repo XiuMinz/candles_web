@@ -8,9 +8,9 @@
 </head>
 
 <body>
-	<form action="handlers/signingHandler.php" method="post">
+	<form action="handlers/signingHandler.php" method="POST">
 		<label>Email Address</label>
-		<input type="email" name="email" placeholder="Enter your email address" required>
+		<input type="email" name="email" placeholder="Enter your email address">
 		<label>User Name</label>
 		<input type="text" name="userName" placeholder="Enter your name">
 		<label>Password</label>
