@@ -11,7 +11,7 @@
 // function addPost(){
 //     console.log("test");
 //     return false;
-// }
+// };
 // let form = document.querySelector("#addPost");
 // form.addEventListener("submit", function (e) {
 //         console.log("test2");
