@@ -33,7 +33,7 @@ if (isset($_SESSION['id'])) {
 		<?php
 		if (isset($_GET['f']) && $_GET['f'] == 'add') {
 			echo "
-        <form action='test.php' method='POST' enctype='multipart/form-data' name='addPost' onsubmit='return addPost()'>
+        <form action='handlers/postsHandler.php' method='POST' enctype='multipart/form-data'>
         <label> Title </label>
         <input type='text' name='title'>
         <label> Body </label>
@@ -82,8 +82,6 @@ if (isset($_SESSION['id'])) {
 		?>
 	</div>
 	<?php include_once 'footer.php'; ?>
-	<script>function addPost(){console.log("test"); return false;};
-</script>
 </body>
 
 </html>

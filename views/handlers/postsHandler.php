@@ -45,8 +45,7 @@ if (isset($_POST['add'])) {
     }
     // Save Image File
     $imgNewName = uniqid() . "." . $imgExt;
-    move_uploaded_file($imgTmpName, "img/posts/$imgNewName");
-
+    move_uploaded_file($imgTmpName, "../../img/posts/$imgNewName");
     // Insert Data
     $insertPost = "INSERT INTO posts (user_id, title, body, img) VALUES ('$userID','$title','$body','$imgNewName')";
     $insertionRes = $conn->query($insertPost);
@@ -108,7 +107,8 @@ if (isset($_POST['add'])) {
         }
         // Save Image File
         $imgNewName = $oldImgName;
-        move_uploaded_file($imgTmpName, "img/posts/$imgNewName");
+        move_uploaded_file($imgTmpName, "../../img/posts/$imgNewName");
+
     } else {
         $imgNewName = $oldImgName;
     }
@@ -129,8 +129,8 @@ if (isset($_POST['add'])) {
     $img = $result->fetch_assoc();
     $imgName = $img['img'];
     $deletePost = "DELETE FROM posts WHERE id = '$postID'";
-    if(file_exists("img/posts/$imgName")){
-        unlink("img/posts/$imgName");
+    if(file_exists("../../img/posts/$imgName")){
+        unlink("../../img/posts/$imgName");
     }
     $deleteRes = $conn->query($deletePost);
     if ($deleteRes) {

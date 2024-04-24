@@ -40,6 +40,7 @@
                     <label class="form-label">Message</label>
                     <textarea class="form-control" name="message" rows="5"></textarea>
                 </div>
+                <a href="mailto:test@gmail.com">Submit</a>
                 <button type="submit" class="btn btn-primary" style="font-family:Papyrus,Fantasy;">Submit</button>
             </form>
         </section>
