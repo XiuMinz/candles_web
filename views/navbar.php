@@ -56,9 +56,9 @@ if (isset($_SESSION['id'])) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                     <li class='nav-item non-user'><a class='nav-link' href='signin.php'>Sign in</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
-                    <li class='nav-item non-user'><a class='nav-link' href='contact.php'>Contact Us</a></li>
+                    <li class='nav-item'><a class='nav-link active' aria-current='page' href='index.php'>Home</a></li>
+                    <li class='nav-item'><a class='nav-link' href='about.php'>About Us</a></li>
+                    <li class='nav-item'><a class='nav-link' href='contact.php'>Contact Us</a></li>
                     <li class='nav-item user'><a class='nav-link' href='editProfile.php'>Edit Profile</a></li>
                     <li class='nav-item user admin'><a class='nav-link' href='addPosts.php?f=add'>Add Post</a></li>
                     <li class='nav-item user'><a class='nav-link' href='signout.php'>Sign Out</a></li>

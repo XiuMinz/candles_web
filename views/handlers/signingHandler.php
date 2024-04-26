@@ -68,7 +68,7 @@ if (isset($_POST['signup'])) {
             die();
         }
     } else {
-        echo "This email is not assigned, <a href='../s ignup.php'> Sign up? </a>";
+        echo "This email is not assigned, <a href='../swignup.php'> Sign up? </a>";
         die();
     }
 }
